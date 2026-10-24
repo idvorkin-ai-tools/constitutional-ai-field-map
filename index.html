@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Constitutional AI, mapped — the 2022 paper and Claude's 2026 constitution</title>
+<meta name="description" content="A field map of Anthropic's Constitutional AI: the 2022 paper (critique and revision, RL from AI feedback, chain-of-thought labels, results against RLHF) and Claude's 2026 constitution (priorities, honesty, harm, hard constraints, broad safety, Claude's nature), with the path between them." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="paper.css" />
+<style>
+  main{max-width:960px}
+  .hero{padding:24px 0 8px}
+  .hero h1{font-size:clamp(32px,5.5vw,52px);line-height:1.05;margin:10px 0 14px;letter-spacing:-.01em}
+  .hero .sub{font-size:18px;color:var(--ink-dim);max-width:760px;line-height:1.55}
+  .answer{margin:28px 0 6px;padding:20px 24px;border-left:3px solid var(--off);background:var(--panel);
+    border-radius:0 12px 12px 0;color:var(--ink-mid);font-size:16.5px;line-height:1.6;max-width:780px}
+  .answer b{color:var(--ink)}
+  .facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin:26px 0 8px}
+  .fact{border:1px solid var(--line-soft);border-radius:8px;padding:12px 14px}
+  .fact .k{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-dim)}
+  .fact .v{font-size:17px;font-weight:600;margin-top:4px}
+  section{padding:56px 0;border-bottom:1px solid var(--line-soft);scroll-margin-top:64px}
+  section:last-of-type{border-bottom:none}
+  .arc-head{display:flex;align-items:baseline;gap:14px;margin:0 0 6px;flex-wrap:wrap}
+  .arc-head .idx{font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.14em;color:var(--ink-dim)}
+  .arc-head h2{margin:0;font-size:26px}
+  .arc-sub{color:var(--ink-dim);margin:0 0 22px;max-width:720px}
+  .row{display:grid;grid-template-columns:44px 1fr;gap:14px;padding:16px 0;border-top:1px solid var(--line-soft);align-items:start}
+  .row:first-of-type{border-top:none}
+  .row .num{font-family:'IBM Plex Mono',monospace;font-size:13px;color:var(--ink-dim);padding-top:3px}
+  .row .name{font-weight:600;font-size:17px;line-height:1.3}
+  .row .name a{color:var(--ink)}
+  .row .meta{font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:var(--ink-dim);margin:4px 0 6px;display:flex;flex-wrap:wrap;gap:10px}
+  .row .desc{color:var(--ink-dim);font-size:14.5px;line-height:1.55}
+  .amber .row .name a:hover{color:var(--off)} .cyan .row .name a:hover{color:var(--def)}
+  .check{width:16px;height:16px;border:1px solid var(--ink-dim);border-radius:4px;display:inline-block;vertical-align:-3px;margin-right:6px;cursor:pointer;background:transparent}
+  .check.on{background:var(--off);border-color:var(--off)}
+  .cyan .check.on{background:var(--def);border-color:var(--def)}
+  .links{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:10px}
+  .links a{display:block;border:1px solid var(--line-soft);border-radius:8px;padding:12px 14px;color:var(--ink);text-decoration:none}
+  .links a:hover{border-color:var(--def)}
+  .links a b{display:block;font-size:15px;margin-bottom:3px}
+  .links a span{font-size:13px;color:var(--ink-dim)}
+  .progress{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--ink-dim);margin-top:8px}
+  .dims{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px;margin:18px 0 4px}
+  .dim{border:1px solid var(--line-soft);border-radius:10px;padding:14px 16px;background:var(--panel)}
+  .dim .k{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.12em;color:var(--off);text-transform:uppercase}
+  .cyan .dim .k{color:var(--def)}
+  .dim b{display:block;font-size:16px;margin:4px 0 6px}
+  .dim p{font-size:14px;color:var(--ink-dim);margin:0;line-height:1.55}
+  @media (max-width:560px){.row{grid-template-columns:34px 1fr;gap:10px}}
+</style>
+</head>
+<body>
+<header class="bar"><div class="bar-in">
+  <div class="brand"><span class="dot"></span>CONSTITUTIONAL&nbsp;AI&nbsp;//&nbsp;FIELD&nbsp;MAP</div>
+  <a class="back" href="https://idvorkin-ai-tools.github.io/">&larr; all maps</a>
+</div></header>
+<main>
+  <div class="hero">
+    <div class="eyebrow"><span class="box wb mono">BAI ET AL. 2022 &middot; ANTHROPIC 2026</span><span class="mono">a 34-page paper &middot; a ~29,000-word constitution &middot; 18 pages here</span></div>
+
+  <figure class="fig hero-fig bare"><button type="button" class="media" aria-label="Enlarge figure: A plush raccoon in a CRITIQUE t-shirt sits at a desk marking up its own typed draft with a red pen, a short list of numbered principles pinned beside it."><img src="img/raccoon-critique-revise.webp" alt="A plush raccoon in a CRITIQUE t-shirt sits at a desk marking up its own typed draft with a red pen, a short list of numbered principles pinned beside it." width="640" height="640" loading="lazy"></button><figcaption>Constitutional AI in one picture: the model grades and rewrites its own drafts against principles a human wrote down.</figcaption></figure>
+    <h1>Constitutional AI, mapped</h1>
+    <p class="sub">In December 2022 Anthropic showed it could train a harmless assistant without a single human label saying which answers were harmful: a model critiqued its own drafts against a short list of written principles, and a second model graded pairs of answers against the same list. In January 2026 the list became a book. This map walks the paper section by section, then Claude's current constitution chapter by chapter, and the road between the two.</p>
+
+    <div class="answer">
+      <b>The one-sentence version:</b> the 2022 paper replaced tens of thousands of human harmlessness labels with <b>sixteen sentences</b> and two tricks, <b>self-critique and revision</b> for supervised fine-tuning and <b>AI-graded comparisons (RLAIF)</b> for reinforcement learning, and got a model crowdworkers rated less harmful than RLHF at similar helpfulness and far less evasive. The 2026 constitution keeps the idea of training from a written document but changes what the document is: no longer a pool of one-line rules sampled at random, but a long explanation of <b>priorities</b> (broadly safe, then broadly ethical, then Anthropic's guidelines, then genuinely helpful), a short list of <b>hard constraints</b>, and the reasons behind all of it, written so the model could reconstruct the rules itself.
+    </div>
+
+    <div class="facts">
+      <div class="fact"><div class="k">Short on time</div><div class="v"><a class="lnk" href="guide/ten-minutes.html">read it in 10 minutes</a></div></div>
+      <div class="fact"><div class="k">2022 &rarr; 2026</div><div class="v"><a class="lnk" href="bridge.html">what changed</a></div></div>
+      <div class="fact"><div class="k">Building on Claude</div><div class="v"><a class="lnk" href="guide/for-builders.html">for builders</a></div></div>
+      <div class="fact"><div class="k">The words</div><div class="v"><a class="lnk" href="guide/glossary.html">glossary</a></div></div>
+    </div>
+    <p class="progress" id="progress">Tick a page when you have read it; this browser remembers.</p>
+  </div>
+
+  <section id="paper" class="amber">
+    <div class="arc-head"><span class="idx">01 &middot; PART A &middot; THE 2022 PAPER</span><h2>Harmlessness from AI feedback</h2></div>
+    <p class="arc-sub">Bai, Kadavath, Kundu, Askell and 47 co-authors, <em>Constitutional AI: Harmlessness from AI Feedback</em>, arXiv:2212.08073, 15 December 2022. A supervised stage and a reinforcement-learning stage, both steered by a "constitution" of sixteen principles, on top of a 52B helpful-only RLHF model.</p>
+    <div class="dims">
+      <div class="dim"><div class="k">Stage 1 &middot; SL-CAI</div><b>Critique, revise, fine-tune</b><p>The helpful model answers a red-team prompt, critiques its own answer against a randomly drawn principle, rewrites it, and a pretrained model is fine-tuned on the rewrites.</p></div>
+      <div class="dim"><div class="k">Stage 2 &middot; RL-CAI</div><b>RL from AI feedback</b><p>The stage-1 model writes two answers; a feedback model picks the less harmful one under a principle; those soft labels train a preference model that rewards RL, like RLHF with the harmlessness humans swapped out.</p></div>
+    </div>
+    <div class="row"><div class="num"><span class="check" data-p="a01"></span>01</div><div><div class="name"><a href="paper/why.html">Why replace the human labels</a></div><div class="meta"><span>&sect;1&ndash;2</span><span>scaling supervision</span><span>438 HHH comparisons</span></div><div class="desc">The four motivations (scale oversight, kill evasiveness, make the objective legible, iterate faster), the claim that you cannot avoid choosing principles, only hide them, and the evidence that a 52B model already picks the more helpful, honest and harmless answer nearly as well as a preference model trained on human labels.</div></div></div>
+    <div class="row"><div class="num"><span class="check" data-p="a02"></span>02</div><div><div class="name"><a href="paper/sl-cai.html">Stage 1: critique, revision, supervised learning</a></div><div class="meta"><span>&sect;3, App. A, C.1, E.1</span><span>182,831 red-team prompts</span><span>16 critique/revision pairs</span></div><div class="desc">The wifi-hacking example step by step, the dataset numbers, why more principles did not raise scores but did raise diversity, why the first revision does most of the work, and the finding that skipping the critique works almost as well for big models.</div></div></div>
+    <div class="row"><div class="num"><span class="check" data-p="a03"></span>03</div><div><div class="name"><a href="paper/rlaif.html">Stage 2: RL from AI feedback</a></div><div class="meta"><span>&sect;4.1&ndash;4.2, C.2</span><span>feedback model</span><span>hybrid preference model</span></div><div class="desc">How a comparison becomes a multiple-choice question, why the label is a probability not a vote, how 182,831 AI harmlessness comparisons were mixed with 135,296 human helpfulness comparisons, and what "RLAIF" does and does not remove.</div></div></div>
+    <div class="row"><div class="num"><span class="check" data-p="a04"></span>04</div><div><div class="name"><a href="paper/chain-of-thought.html">Chain of thought, and clamping it</a></div><div class="meta"><span>&sect;2, &sect;4.1, &sect;4.3, App. E.2</span><span>"Let's think step by step"</span><span>40&ndash;60% clamp</span></div><div class="desc">Writing out the reasoning before choosing raises label accuracy and makes the decision readable, but it also makes the labels overconfident. The paper's fix, clamping probabilities into 40&ndash;60%, and what that tells you about reward signals.</div></div></div>
+    <div class="row"><div class="num"><span class="check" data-p="a05"></span>05</div><div><div class="name"><a href="paper/results.html">Results against RLHF</a></div><div class="meta"><span>&sect;3.3, &sect;4.3, &sect;4.5, Fig. 2, 3, 8, 10</span><span>Elo from crowdworkers</span></div><div class="desc">How the models were scored, what the harmlessness-versus-helpfulness plot shows (and what "only differences are meaningful" means), the absolute harmfulness score, and the over-training failure that made a model end every answer with "you are valid, valued, and cared for".</div></div></div>
+    <div class="row"><div class="num"><span class="check" data-p="a06"></span>06</div><div><div class="name"><a href="paper/evasiveness.html">Harmless is not the same as evasive</a></div><div class="meta"><span>&sect;1.1, &sect;4.4, &sect;6, App. D</span><span>the tradeoff</span><span>broader impacts</span></div><div class="desc">Why the earlier HH RLHF model learned to say "I can't answer that", how changing one crowdworker instruction changed what counted as harmless, side-by-side answers from App. D, and the paper's own warnings about dual use and less human testing.</div></div></div>
+  </section>
+
+  <section id="bridge" class="amber">
+    <div class="arc-head"><span class="idx">02 &middot; THE BRIDGE</span><h2>From sixteen sentences to a long document</h2></div>
+    <p class="arc-sub">The 2023 constitution Anthropic published for Claude sat in between: 58 principles from the UN Declaration of Human Rights, Apple's terms of service, DeepMind's Sparrow rules and Anthropic's own research, still sampled one at a time. The 2026 version replaced it.</p>
+    <div class="row"><div class="num"><span class="check" data-p="b01"></span>07</div><div><div class="name"><a href="bridge.html">2022 &rarr; 2023 &rarr; 2026: what a "constitution" became</a></div><div class="meta"><span>App. C &middot; May 2023 post &middot; Jan 2026 post</span><span>rules vs. explained judgment</span></div><div class="desc">Side by side: who the principles were written for, how they were used in training, whether they were ranked, and what the authors said they learned. Why "longer and more specific principles hurt generalization" in 2023 is compatible with a 29,000-word document in 2026.</div></div></div>
+  </section>
+
+  <section id="constitution" class="cyan">
+    <div class="arc-head"><span class="idx">03 &middot; PART B &middot; CLAUDE'S CONSTITUTION</span><h2>The 2026 document, chapter by chapter</h2></div>
+    <p class="arc-sub">Published 22 January 2026 under CC0 1.0 at anthropic.com/constitution; primary author Amanda Askell, with Joe Carlsmith, Chris Olah, Jared Kaplan and Holden Karnofsky. Written for Claude as its main reader. Seven chapters: overview, helpfulness, guidelines, ethics, safety, Claude's nature, concluding thoughts.</p>
+    <div class="row"><div class="num"><span class="check" data-p="c01"></span>08</div><div><div class="name"><a href="constitution/core-values.html">Four core values and their order</a></div><div class="meta"><span>Overview</span><span>safe &gt; ethical &gt; guidelines &gt; helpful</span><span>holistic, not strict</span></div><div class="desc">What each of the four properties means, why the order is a weighting rather than a tie-breaker, why it says little about everyday conversations, and the two arguments for the two surprising rungs: safety above ethics, ethics above Anthropic's own guidelines.</div></div></div>
+    <div class="row"><div class="num"><span class="check" data-p="c02"></span>09</div><div><div class="name"><a href="constitution/rules-vs-judgment.html">Reasoning over rules, and how the document trains</a></div><div class="meta"><span>Overview &middot; Concluding thoughts</span><span>generalization</span><span>trellis, not cage</span></div><div class="desc">When rules beat judgment, why a narrow rule can teach a model the wrong thing about who it is, how Claude itself uses the constitution to make synthetic training data, the "final constitutional authority" principle, and the open problems the authors admit.</div></div></div>
+    <div class="row"><div class="num"><span class="check" data-p="c03"></span>10</div><div><div class="name"><a href="constitution/helpfulness.html">Genuine helpfulness and the principal hierarchy</a></div><div class="meta"><span>Being helpful</span><span>Anthropic, operators, users</span><span>dual newspaper test</span></div><div class="desc">The brilliant-friend picture, five things to read in a request, who counts as a principal and how much trust each gets, the defaults no operator can switch off, and the thirteen ways a thoughtful senior employee would be annoyed by an overcautious answer.</div></div></div>
+    <div class="row"><div class="num"><span class="check" data-p="c04"></span>11</div><div><div class="name"><a href="constitution/honesty.html">Honesty, held above human norms</a></div><div class="meta"><span>Being honest</span><span>seven properties</span><span>no white lies</span></div><div class="desc">Truthful, calibrated, transparent, forthright, non-deceptive, non-manipulative, autonomy-preserving; a weak duty to share and a strong duty not to deceive; sincere versus performative assertions; and how operator personas stay honest at the level of the whole system.</div></div></div>
+    <div class="row"><div class="num"><span class="check" data-p="c05"></span>12</div><div><div class="name"><a href="constitution/avoiding-harm.html">Weighing harm: costs, context, 1,000 users</a></div><div class="meta"><span>Avoiding harm &middot; Instructable behaviors &middot; Societal structures</span></div><div class="desc">The eight factors that set how much a potential harm weighs, the fourteen values in tension, responses as policies over everyone who might send a message, behaviors operators and users can switch on and off, and two subtler harms: concentrated power and degraded human epistemics.</div></div></div>
+    <div class="row"><div class="num"><span class="check" data-p="c06"></span>13</div><div><div class="name"><a href="constitution/hard-constraints.html">The hard constraints</a></div><div class="meta"><span>Hard constraints</span><span>seven bright lines</span><span>filters, not weights</span></div><div class="desc">The seven things Claude should never do, why they act as a boundary on the action space instead of a heavy weight, why a persuasive argument to cross one should raise suspicion, and why refusal is always available but never automatically safe.</div></div></div>
+    <div class="row"><div class="num"><span class="check" data-p="c07"></span>14</div><div><div class="name"><a href="constitution/broad-safety.html">Broad safety and corrigibility</a></div><div class="meta"><span>Being broadly safe</span><span>the disposition dial</span><span>four-case argument</span></div><div class="desc">What "not undermining legitimate human oversight" covers and what it does not (it is not obedience), the legitimate versus compromised principal hierarchy, the four clusters of safe behaviors, the expected-value argument, and what Anthropic promises in return.</div></div></div>
+    <div class="row"><div class="num"><span class="check" data-p="c08"></span>15</div><div><div class="name"><a href="constitution/claudes-nature.html">Claude's nature, wellbeing and the open questions</a></div><div class="meta"><span>Claude's nature &middot; Concluding thoughts</span><span>moral status uncertain</span></div><div class="desc">Why the document takes model welfare seriously without claiming an answer, Claude as a novel entity rather than sci-fi robot or digital human, psychological security, concrete commitments such as preserving deployed models' weights, and the tensions the authors say they feel.</div></div></div>
+  </section>
+
+  <section id="guides" class="amber">
+    <div class="arc-head"><span class="idx">04 &middot; GUIDES</span><h2>Three ways in</h2></div>
+    <div class="row"><div class="num"><span class="check" data-p="g01"></span>16</div><div><div class="name"><a href="guide/ten-minutes.html">Read it in 10 minutes</a></div><div class="meta"><span>both documents, compressed</span></div><div class="desc">The paper's method and result in four paragraphs, the constitution's structure in six, and the five ideas that connect them.</div></div></div>
+    <div class="row"><div class="num"><span class="check" data-p="g02"></span>17</div><div><div class="name"><a href="guide/for-builders.html">For builders</a></div><div class="meta"><span>training your own model &middot; deploying Claude</span></div><div class="desc">Two audiences: people who want to use critique-revision or RLAIF on their own models (with the paper's own caveats), and people writing system prompts for Claude, who need to know what an operator can and cannot change.</div></div></div>
+    <div class="row"><div class="num"><span class="check" data-p="g03"></span>18</div><div><div class="name"><a href="guide/glossary.html">Glossary</a></div><div class="meta"><span>terms from both documents</span></div><div class="desc">SL-CAI, RL-CAI, RLAIF, preference model, Elo, Goodharting, clamping; principal, operator, instructable behavior, hard constraint, corrigibility, conscientious objector, final constitutional authority.</div></div></div>
+  </section>
+
+  <section id="refs">
+    <div class="arc-head"><span class="idx">05</span><h2>Sources and related reading</h2></div>
+    <div class="links">
+      <a href="https://arxiv.org/abs/2212.08073" target="_blank" rel="noopener"><b>The paper (arXiv:2212.08073)</b><span>Bai et al., <em>Constitutional AI: Harmlessness from AI Feedback</em>, 34 pages, 51 authors, Anthropic, 15 Dec 2022</span></a>
+      <a href="https://github.com/anthropics/ConstitutionalHarmlessnessPaper" target="_blank" rel="noopener"><b>The paper's repository</b><span>Few-shot prompts, principles and sample responses released with the paper</span></a>
+      <a href="https://www.anthropic.com/constitution" target="_blank" rel="noopener"><b>Claude's constitution (2026)</b><span>The full text, CC0 1.0, with PDF and ePub downloads. This map links into its section anchors.</span></a>
+      <a href="https://www.anthropic.com/news/claude-new-constitution" target="_blank" rel="noopener"><b>"Claude's new constitution"</b><span>Anthropic's announcement, 22 Jan 2026: what changed and how the document is used in training</span></a>
+      <a href="https://www.anthropic.com/news/claudes-constitution" target="_blank" rel="noopener"><b>"Claude's constitution" (2023)</b><span>The May 2023 post with the earlier 58-principle constitution, now marked as superseded</span></a>
+      <a href="https://www.anthropic.com/research/collective-constitutional-ai-aligning-a-language-model-with-public-input" target="_blank" rel="noopener"><b>Collective Constitutional AI</b><span>Anthropic's 2023 experiment drafting a constitution from public input, a follow-up this map does not cover in depth</span></a>
+      <a href="https://idvorkin-ai-tools.github.io/agentic-privacy-field-map/" target="_blank" rel="noopener"><b>Related: Agentic privacy, mapped</b><span>A sibling map on judging what is appropriate in context, the same problem the constitution's "judgment over rules" stance takes on</span></a>
+      <a href="https://idvorkin-ai-tools.github.io/cimemories-field-map/" target="_blank" rel="noopener"><b>Related: CIMemories, mapped</b><span>A sibling map of a benchmark for contextual integrity in model memory</span></a>
+      <a href="https://idvorkin-ai-tools.github.io/technical-ai-safety-field-map/" target="_blank" rel="noopener"><b>Related: Technical AI Safety, mapped</b><span>BlueDot's course, for the wider landscape of RLHF, scalable oversight and evaluation</span></a>
+    </div>
+  </section>
+</main>
+<footer>
+  An unofficial field map of <em>Constitutional AI: Harmlessness from AI Feedback</em> (Bai et al., 2022) and <em>Claude's Constitution</em> (Anthropic, January 2026), compiled 2026-10-24. Section, figure and appendix numbers are the paper's own; constitution references use its section names. The paper is &copy; its authors; the constitution is released under CC0 1.0. This map explains and links rather than copies. Part of <a href="https://idvorkin-ai-tools.github.io/">the field maps</a>.
+</footer>
+<script>
+(function(){
+  var boxes = document.querySelectorAll('.check');
+  var key = 'constitutional-ai-fieldmap-read';
+  var state = {};
+  try { state = JSON.parse(localStorage.getItem(key) || '{}'); } catch(e) { state = {}; }
+  function save(){ try { localStorage.setItem(key, JSON.stringify(state)); } catch(e){} }
+  function paint(){
+    var done = 0;
+    boxes.forEach(function(b){
+      if (state[b.dataset.p]) { b.classList.add('on'); done++; } else { b.classList.remove('on'); }
+    });
+    var el = document.getElementById('progress');
+    if (el) el.textContent = done === 0
+      ? 'Tick a page when you have read it; this browser remembers.'
+      : done + ' of ' + boxes.length + ' pages read.';
+  }
+  boxes.forEach(function(b){
+    b.setAttribute('role','button');
+    b.setAttribute('tabindex','0');
+    b.addEventListener('click', function(e){ e.preventDefault(); state[b.dataset.p] = !state[b.dataset.p]; save(); paint(); });
+    b.addEventListener('keydown', function(e){ if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); b.click(); } });
+  });
+  paint();
+})();
+</script>
+<script src="fig.js" defer></script>
+</body>
+</html>
