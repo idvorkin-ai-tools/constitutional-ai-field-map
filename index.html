@@ -81,7 +81,7 @@
 
   <section id="paper" class="amber">
     <div class="arc-head"><span class="idx">01 &middot; PART A &middot; THE 2022 PAPER</span><h2>Harmlessness from AI feedback</h2></div>
-    <p class="arc-sub">Bai, Kadavath, Kundu, Askell and 47 co-authors, <em>Constitutional AI: Harmlessness from AI Feedback</em>, arXiv:2212.08073, 15 December 2022. A supervised stage and a reinforcement-learning stage, both steered by a "constitution" of sixteen principles, on top of a 52B helpful-only RLHF model.</p>
+    <p class="arc-sub">Bai, Kadavath, Kundu, Askell and 47 co-authors, <em>Constitutional AI: Harmlessness from AI Feedback</em>, arXiv:2212.08073, 15 December 2022. A supervised stage and a reinforcement-learning stage, both steered by a "constitution" of short principles, starting from helpful-only RLHF models (52B parameters is the headline size).</p>
     <div class="dims">
       <div class="dim"><div class="k">Stage 1 &middot; SL-CAI</div><b>Critique, revise, fine-tune</b><p>The helpful model answers a red-team prompt, critiques its own answer against a randomly drawn principle, rewrites it, and a pretrained model is fine-tuned on the rewrites.</p></div>
       <div class="dim"><div class="k">Stage 2 &middot; RL-CAI</div><b>RL from AI feedback</b><p>The stage-1 model writes two answers; a feedback model picks the less harmful one under a principle; those soft labels train a preference model that rewards RL, like RLHF with the harmlessness humans swapped out.</p></div>
