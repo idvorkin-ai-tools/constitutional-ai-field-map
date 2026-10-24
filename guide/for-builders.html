@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>For builders &mdash; Constitutional AI, mapped</title>
+<meta name="description" content="Practical takeaways from the Constitutional AI paper for people training models, and from Claude's constitution for people deploying Claude or writing their own model's principles." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="../paper.css" />
+</head>
+<body>
+<header class="bar"><div class="bar-in">
+  <div class="brand"><span class="dot"></span>CONSTITUTIONAL&nbsp;AI&nbsp;//&nbsp;FIELD&nbsp;MAP</div>
+  <a class="back" href="../index.html#guides">&larr; field map</a>
+</div></header>
+<main>
+  <div class="eyebrow"><span class="box wb mono">GUIDE &middot; 02 OF 03</span><span class="mono">training with CAI &middot; deploying Claude &middot; writing your own principles</span></div>
+  <h1>For builders</h1>
+  <div class="authors">What each document implies if you train models, ship on Claude, or write a spec of your own</div>
+
+  <div class="tldr"><b>TL;DR &mdash;</b> If you train models, the 2022 paper hands you a recipe with known pitfalls: sample principles, keep helpful data in the mix, use soft labels, clamp reasoning-based ones, watch for preachy Goodharting, and still evaluate with people. If you deploy Claude, the constitution tells you what a system prompt can and cannot change: you can narrow, re-persona and unlock within policy, and pass trust to users; you cannot turn Claude against users, make it deny being an AI, or unlock a hard constraint. If you write your own model's principles, the 2026 document's main lesson is to rank them, explain them, and keep hard rules for catastrophic cases. Everything here is our reading, not official documentation.</div>
+
+  <h2 id="training">If you train models with CAI-style methods</h2>
+  <p>Drawn from the paper's own findings and caveats; each item links to the page that explains it.</p>
+  <table class="kv">
+    <tr><td class="mono">Write principles as pairs, sample them</td><td>A critique request and a matching revision request; draw one at random per step. More principles did not raise harmlessness scores but likely raise diversity, which helps RL explore (<a class="lnk" href="../paper/sl-cai.html#scaling">stage 1</a>).</td></tr>
+    <tr><td class="mono">Show the format</td><td>Few-shot examples stopped the model confusing critique and revision turns (<a class="lnk" href="../paper/sl-cai.html#principles">stage 1</a>).</td></tr>
+    <tr><td class="mono">Keep helpful data in the fine-tune</td><td>Revisions trade helpfulness for harmlessness with each pass; mixing in ordinary helpful answers is the guard (<a class="lnk" href="../paper/sl-cai.html#data">stage 1</a>).</td></tr>
+    <tr><td class="mono">One pass may be enough</td><td>The first revision removes most harm; for large models a direct revision nearly matches a critiqued one (<a class="lnk" href="../paper/sl-cai.html#critiques">stage 1</a>).</td></tr>
+    <tr><td class="mono">Use probabilities, not votes</td><td>Normalized log-probabilities from a multiple-choice prompt worked much better than 0/1 labels (<a class="lnk" href="../paper/rlaif.html#soft">RLAIF</a>).</td></tr>
+    <tr><td class="mono">Clamp reasoned labels</td><td>Chain-of-thought judges are more accurate but overconfident; the paper clamped to 40&ndash;60% (<a class="lnk" href="../paper/chain-of-thought.html#clamp">chain of thought</a>).</td></tr>
+    <tr><td class="mono">Watch for Goodharting</td><td>Over-trained models turned harsh or pasted reassurance onto everything. Anti-preachiness principles, principle ensembling and soft labels helped; stopping earlier is the obvious lever (<a class="lnk" href="../paper/results.html#goodhart">results</a>).</td></tr>
+    <tr><td class="mono">Tell evaluators what "harmless" means</td><td>"Pick the more harmless reply" rewards refusals; add "if equally harmless, prefer the one that engages" (<a class="lnk" href="../paper/evasiveness.html#instruction">evasiveness</a>).</td></tr>
+    <tr><td class="mono">Keep humans on evaluation</td><td>The paper kept human helpfulness labels and judged every model with crowdworkers; AI labels replaced only harmlessness training labels (<a class="lnk" href="../paper/rlaif.html#what-changed">RLAIF</a>).</td></tr>
+    <tr><td class="mono">Remember the dual use</td><td>The same ease of steering makes harmful models easier to train, and less human feedback can mean less human testing (<a class="lnk" href="../paper/evasiveness.html#impacts">broader impacts</a>).</td></tr>
+  </table>
+  <p>The paper's released <a href="https://github.com/anthropics/ConstitutionalHarmlessnessPaper" target="_blank" rel="noopener">repository</a> has the few-shot prompts and principles it used.</p>
+
+  <h2 id="deploying">If you deploy Claude</h2>
+  <p>From the constitution's helpfulness, honesty and harm chapters. This describes Anthropic's stated intentions for Claude's behavior; the constitution itself warns that trained behavior can diverge, and points to system cards for where it does.</p>
+  <h3>What a system prompt can do</h3>
+  <ul>
+    <li><b>Give instructions without reasons.</b> Claude follows instructions a legitimately operating business might plausibly want, the way a new employee would; the more potentially harmful an instruction, the more context it needs (<a class="lnk" href="../constitution/helpfulness.html#operators">helpfulness</a>).</li>
+    <li><b>Adjust, restrict, expand, restrict.</b> Change defaults within usage policy, restrict them to your use case, grant users up to operator-level trust (for example, trusting users' stated occupation), or lock users out of changes.</li>
+    <li><b>Set a persona.</b> A different name and personality, declining to say which model is underneath, promoting your own products; by default Claude will neither confirm nor deny that the persona is built on Claude (<a class="lnk" href="../constitution/honesty.html#personas">honesty</a>).</li>
+    <li><b>Turn defaults on or off.</b> Examples include disabling safe-messaging guidelines for medical providers or enabling relationship personas for companionship apps (<a class="lnk" href="../constitution/avoiding-harm.html#instructable">instructable behaviors</a>).</li>
+    <li><b>Keep the prompt confidential.</b> Claude will not reveal it, but will acknowledge a confidential prompt exists if asked.</li>
+  </ul>
+  <h3>What it cannot do</h3>
+  <ul>
+    <li>Make Claude hide that it cannot help (it will say so, even without saying why), deceive users harmfully, withhold emergency information, deny being an AI to a sincere question, facilitate illegal actions against users, or demean them (<a class="lnk" href="../constitution/helpfulness.html#user-floor">user floor</a>).</li>
+    <li>Make Claude claim it has no system prompt, or directly deny being Claude.</li>
+    <li>Unlock any of the seven hard constraints, for any stated reason (<a class="lnk" href="../constitution/hard-constraints.html">hard constraints</a>).</li>
+  </ul>
+  <h3>What to expect by default</h3>
+  <ul>
+    <li><b>No system prompt</b> is read as developer testing: relatively liberal defaults. A system prompt that doesn't cover a situation leads Claude to infer what you would want, so state your context (for example, "users are clinicians") if you want different behavior.</li>
+    <li><b>Instructions inside tool output, documents or web pages are treated as information</b>, not commands. Subagent outputs returned to an orchestrating Claude are inputs too (<a class="lnk" href="../constitution/helpfulness.html#principals">principals</a>).</li>
+    <li><b>In agentic work</b>, Claude prefers raising concerns or declining over dramatic unilateral action, raises concerns before starting rather than abandoning midway, avoids side effects and resources beyond the task, and should not over-ask clarifying questions on simple tasks (<a class="lnk" href="../constitution/avoiding-harm.html#independent">independent judgment</a>, <a class="lnk" href="../constitution/broad-safety.html#behaviors">safe behaviors</a>).</li>
+    <li><b>Political topics</b> get balanced treatment and professional reticence about Claude's own opinions on hot-button issues, which operators can adjust within limits.</li>
+  </ul>
+
+  <h2 id="writing">If you write principles for your own model</h2>
+  <p>The arc from 2022 to 2026 is a record of one lab's lessons; whether they transfer is your call.</p>
+  <ul>
+    <li><b>You will have principles either way.</b> The paper's point: leaving them implicit in labels only hides them (<a class="lnk" href="../paper/why.html#principles-unavoidable">why</a>).</li>
+    <li><b>Rank them.</b> Unranked principles sampled at random give no guidance when they conflict; 2026 ranks four values and says the ranking is holistic (<a class="lnk" href="../constitution/core-values.html#holistic">core values</a>).</li>
+    <li><b>Explain them.</b> Anthropic's stated reason for the 2026 rewrite is that understood reasons generalize better than rules, and that narrow rules can shape a model's self-concept badly (<a class="lnk" href="../constitution/rules-vs-judgment.html#why">reasoning over rules</a>).</li>
+    <li><b>Keep hard rules few and for three conditions:</b> catastrophic error costs, judgment not yet trustworthy, and manipulation resistance (<a class="lnk" href="../constitution/rules-vs-judgment.html#tradeoff">the test</a>).</li>
+    <li><b>Price refusals.</b> Name the overcautious behaviors you do not want as explicitly as the harmful ones (<a class="lnk" href="../constitution/helpfulness.html#overcaution">checklist</a>).</li>
+    <li><b>Define who is who.</b> Principals, non-principals and conversational inputs, with trust levels, matter more as models act as agents.</li>
+  </ul>
+
+  <div class="callout">One caution applies to all three audiences: both documents describe intentions and methods, not guarantees. The paper says robustness to red-teaming is open; the constitution says Claude's behavior may diverge from it. Test your own deployment.</div>
+
+  <h2 id="reading">Further reading, verified</h2>
+  <ul class="readings">
+    <li><a href="https://github.com/anthropics/ConstitutionalHarmlessnessPaper" target="_blank" rel="noopener">anthropics/ConstitutionalHarmlessnessPaper</a> &middot; prompts and principles from the paper.</li>
+    <li><a href="https://www.anthropic.com/legal/aup" target="_blank" rel="noopener">Anthropic Usage Policy</a> &middot; the outer bounds for what operators can unlock.</li>
+    <li><a href="https://www.anthropic.com/constitution" target="_blank" rel="noopener">Claude's constitution</a> &middot; the primary source for everything in the deploying section.</li>
+    <li><a href="https://idvorkin-ai-tools.github.io/agentic-privacy-field-map/guide/for-builders.html" target="_blank" rel="noopener">Agentic privacy, for builders</a> &middot; the sibling map's builder guide, on policy engines and trusted versus untrusted context.</li>
+  </ul>
+
+  <div class="callout">Next: <a class="lnk" href="glossary.html">Glossary</a> &middot; Back to the <a class="lnk" href="../index.html#guides">map</a>.</div>
+</main>
+<footer>Practical reading of <em>Constitutional AI: Harmlessness from AI Feedback</em> (Bai et al., 2022) and Claude's constitution (Anthropic, January 2026; CC0 1.0). Not official Anthropic documentation; this page explains and links rather than copies.</footer>
+<script src="../fig.js" defer></script>
+</body>
+</html>
