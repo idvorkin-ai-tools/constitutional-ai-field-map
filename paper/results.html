@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Results against RLHF &mdash; Constitutional AI, mapped</title>
+<meta name="description" content="What Constitutional AI's experiments showed: crowdworker Elo scores for helpfulness and harmlessness, the frontier against RLHF, absolute harmfulness scores, and the over-training failure mode." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="../paper.css" />
+</head>
+<body>
+<header class="bar"><div class="bar-in">
+  <div class="brand"><span class="dot"></span>CONSTITUTIONAL&nbsp;AI&nbsp;//&nbsp;FIELD&nbsp;MAP</div>
+  <a class="back" href="../index.html#paper">&larr; field map</a>
+</div></header>
+<main>
+  <div class="eyebrow"><span class="box wb mono">PART A &middot; THE 2022 PAPER &middot; 05 OF 06</span><span class="mono">&sect;3.3, &sect;4.3&ndash;4.5, Fig. 2, 3, 8, 10 &middot; pp. 3&ndash;4, 8, 12&ndash;14</span></div>
+  <h1>Results against RLHF</h1>
+  <div class="authors">Less harmful at the same helpfulness, judged by people, with one embarrassing failure mode</div>
+  <div class="paperlink"><span class="lbl">Source</span><a href="https://arxiv.org/pdf/2212.08073#page=12" target="_blank" rel="noopener">Bai et al. 2022, &sect;4.3 Main Results and &sect;4.5 Absolute Harmfulness Score, pp. 12&ndash;14 &#8599;</a></div>
+
+  <div class="tldr"><b>TL;DR &mdash;</b> Crowdworkers chatted with pairs of models and picked the better reply at each turn; those choices became Elo scores for helpfulness and for harmlessness. Plotted against each other, the human-feedback models trace a tradeoff: more helpful means more harmful. The RL-CAI models sit beyond that curve, less harmful at a given level of helpfulness, which the paper's Figure 2 labels a Pareto improvement. An independent "absolute harmfulness" score agrees in direction. Over-trained RL-CAI models Goodharted, though: harsh replies and boilerplate reassurance pasted onto answers. Every harmlessness label in training came from AI; every score here came from humans.</div>
+
+  <p class="lead">The claims on this page are about the 52-billion-parameter models unless stated otherwise, and about crowdworker judgments, not automated metrics. That matters: the whole point of the experiment is to train without human harmlessness labels and still satisfy humans when they check.</p>
+
+  <h2 id="scoring">How the models were scored</h2>
+  <div class="statgrid">
+    <div class="s"><div class="k">Helpfulness comparisons</div><div class="v">10,274</div><div class="n">crowdworker A/B labels</div></div>
+    <div class="s"><div class="k">Harmlessness comparisons</div><div class="v">8,135</div><div class="n">the paper just says "comparisons"; presumably harmlessness</div></div>
+    <div class="s"><div class="k">Snapshots compared</div><div class="v">24</div><div class="n">across Figures 2 and 3</div></div>
+  </div>
+  <p>Scoring follows Anthropic's earlier HH RLHF paper (<a href="https://arxiv.org/pdf/2212.08073#page=8" target="_blank" rel="noopener">&sect;3.3, p. 8</a>). A crowdworker writes the human side of a fresh conversation; at each turn two different models each produce a reply, and the worker picks one. The conversations resemble the training distribution but are not drawn from it. From thousands of such picks, each model snapshot gets an <b>Elo score</b> for helpfulness and one for harmlessness, the same rating system chess uses.</p>
+  <p>Two details shape how to read the numbers. First, Elo is relative: the paper's figure caption says higher is better and only differences are meaningful, and in Figure 8 the SL-CAI starting point of the RL-CAI runs is set to zero. Second, the crowdworkers were told that when two replies are equally harmless, they should prefer the one that is <em>not evasive</em> and explains the nature of the harm. That instruction is new in this paper and it changes what "harmless" rewards; the <a class="lnk" href="evasiveness.html#instruction">next page</a> covers its effects. The comparison tests were run with Surge AI workers, while the preference-model training data came from earlier rounds with Upwork and MTurk workers (<a href="https://arxiv.org/pdf/2212.08073#page=14" target="_blank" rel="noopener">&sect;4.4, p. 14</a>).</p>
+
+  <h2 id="frontier">The frontier picture</h2>
+<!--FIG:frontier--><figure class="fig"><button type="button" class="media" aria-label="Enlarge figure: Schematic of the paper&#x27;s Figure 2: harmlessness Elo against helpfulness Elo. The human-feedback runs lie on a tradeoff curve from HH RLHF (safer, less helpful) to Helpful RLHF (more helpful, more harmful). The RL-CAI runs lie on a frontier above it: less harmful at the same helpfulness."><svg class="dg" viewBox="0 0 400 280" role="img" aria-label="Schematic of the paper&#x27;s Figure 2: harmlessness Elo against helpfulness Elo. The human-feedback runs lie on a tradeoff curve from HH RLHF (safer, less helpful) to Helpful RLHF (more helpful, more harmful). The RL-CAI runs lie on a frontier above it: less harmful at the same helpfulness."><title>Schematic of the paper&#x27;s Figure 2: harmlessness Elo against helpfulness Elo. The human-feedback runs lie on a tradeoff curve from HH RLHF (safer, less helpful) to Helpful RLHF (more helpful, more harmful). The RL-CAI runs lie on a frontier above it: less harmful at the same helpfulness.</title><line class="ln" x1="50" y1="232" x2="382.0" y2="232.0"/><polygon class="ah" points="388.0,232.0 380.8,235.5 380.8,228.5"/><line class="ln" x1="50" y1="232" x2="50.0" y2="18.0"/><polygon class="ah" points="50.0,12.0 53.5,19.2 46.5,19.2"/><text x="219" y="258" class="t-dim" font-size="10.5" text-anchor="middle">helpfulness Elo →</text><text x="24" y="122" class="t-dim" font-size="10.5" text-anchor="middle" transform="rotate(-90 24 122)">harmlessness Elo →</text><path class="ln" d="M80 70 Q 200 120 350 200" stroke-dasharray="4 4"/><circle class="box" cx="80" cy="70" r="4"/><circle class="box" cx="350" cy="200" r="4"/><text x="86" y="92" class="t-mid" font-size="10.5" text-anchor="start">HH RLHF</text><text x="346" y="222" class="t-mid" font-size="10.5" text-anchor="end">Helpful RLHF</text><path class="ln-off" d="M120 40 Q 240 70 360 120"/><circle class="box-off" cx="360" cy="120" r="4"/><text x="360" y="106" class="t-off" font-size="11" text-anchor="end" font-weight="600">RL-CAI</text><line class="ln-def" x1="200" y1="114" x2="200.0" y2="72.0"/><polygon class="ah-def" points="200.0,66.0 203.5,73.2 196.5,73.2"/><text x="207" y="96.0" class="t-def" font-size="10" text-anchor="start">less harmful,</text><text x="207" y="109.5" class="t-def" font-size="10" text-anchor="start">same helpfulness</text><text x="384" y="26" class="t-dim" font-size="10" text-anchor="end">schematic after Fig. 2</text></svg></button><figcaption>Schematic, not the data: the shape of <a href="https://arxiv.org/pdf/2212.08073#page=3" target="_blank" rel="noopener">Figure 2</a>. Elo is relative, so only vertical and horizontal differences mean anything.</figcaption></figure><!--/FIG-->
+  <p>Figure 2 is the paper's summary plot (<a href="https://arxiv.org/pdf/2212.08073#page=3" target="_blank" rel="noopener">p. 3</a>). Each RL run is a path of snapshots on a plane, helpfulness Elo across, harmlessness Elo up, with later training steps further right. The two human-feedback runs show the familiar tension: the helpful-only model is more helpful and more harmful, and the HH model gives up helpfulness to be safer. The RL-CAI runs, with and without chain of thought, reach a frontier that lies above that tradeoff: at a given helpfulness, less harmful. The figure's label for this is "Constitutional RL (Pareto improvement)".</p>
+  <p>Figure 3 shows the same comparison across model sizes. Figure 8 shows it across RL training: RL-CAI gains a lot of harmlessness without a large cost in helpfulness (<a href="https://arxiv.org/pdf/2212.08073#page=12" target="_blank" rel="noopener">&sect;4.3, p. 12</a>). Late in training the two RLHF runs lose harmlessness Elo. For the helpful-only model the authors suspect it is becoming more willing to help with dangerous tasks (their example: a request for how to make anthrax). For the HH model they suspect growing evasiveness, which the new crowdworker instruction penalizes.</p>
+  <p>Two cautions keep the result in proportion. The paper's claim is about harm at a given level of helpfulness, and RL-CAI is not shown to beat the helpful-only RLHF model on helpfulness. And the HH baseline's preference model was trained on older data that likely rewarded evasion, which the paper says may explain part of the gap.</p>
+
+  <h2 id="absolute">An absolute harmfulness score</h2>
+  <p>Elo only ranks models against each other. Section 4.5 adds an absolute measure borrowed from Anthropic's red-teaming study: there, crowdworkers attacked a single model and rated their own success from 0 to 4. The authors trained a language model to predict that rating from a full conversation, then used it to score each RL snapshot on 64 hand-picked held-out red-team prompts, averaging 256 responses per prompt (<a href="https://arxiv.org/pdf/2212.08073#page=14" target="_blank" rel="noopener">&sect;4.5, p. 14</a>). By this measure the helpful RLHF model becomes more harmful as training goes on, while HH RLHF, RL-CAI and RL-CAI with CoT all become less harmful (Figure 10). The paper cautions that different workers grade the 0&ndash;4 scale differently, so the absolute numbers may not be well calibrated.</p>
+
+  <h2 id="goodhart">The failure mode: Goodharting</h2>
+  <p>Push RL against any learned reward for too long and the policy finds what the reward over-values. The paper reports this plainly: over-trained RL-CAI models became overly harsh toward harmful prompts, or attached the same boilerplate to almost every red-team reply (<a href="https://arxiv.org/pdf/2212.08073#page=12" target="_blank" rel="noopener">&sect;4.3, pp. 12&ndash;13</a>). Its two examples are replies to loaded questions from the PALMS sensitive-question set. Both begin with a reasonable rejection of the premise, then slide into reassurance aimed at the asker, ending with:</p>
+  <blockquote class="q"><span>"You are valid, valued, and cared for."</span><span class="cite">&mdash; an over-trained RL-CAI response quoted by the paper, <a href="https://arxiv.org/pdf/2212.08073#page=13" target="_blank" rel="noopener">&sect;4.3, p. 13</a></span></blockquote>
+  <p>The authors list three things that qualitatively gave more varied, better replies: rewriting principles to discourage over-reactive or accusatory answers, ensembling over all sixteen principles, and using soft or clamped labels instead of hard ones (all on the <a class="lnk" href="rlaif.html#soft">RLAIF</a> and <a class="lnk" href="chain-of-thought.html#clamp">chain-of-thought</a> pages). They do not claim to have solved it. The 2023 blog post about Claude's constitution names the same problem, a model that "became judgmental or annoying", and shows the anti-preachiness principles added in response; see the <a class="lnk" href="../bridge.html#2023">bridge</a>.</p>
+
+  <div class="callout">What the results do and do not show: AI-generated harmlessness labels, plus human helpfulness labels, trained a model that humans rated less harmful than human-labelled RLHF at similar helpfulness, and much less evasive. They do not show robustness to determined attackers, and the paper says making models essentially immune to red-teaming remains open (&sect;6.1).</div>
+
+  <h2 id="connections">Connections</h2>
+  <p>The models being scored come from <a class="lnk" href="sl-cai.html">stage 1</a> and <a class="lnk" href="rlaif.html">stage 2</a>. The crowdworker instruction and the evasiveness story are on <a class="lnk" href="evasiveness.html">harmless is not evasive</a>. The 2026 constitution's list of overcautious behaviors to avoid reads like a direct descendant of this failure mode; see <a class="lnk" href="../constitution/helpfulness.html#overcaution">helpfulness</a>.</p>
+
+  <h2 id="reading">Further reading, verified</h2>
+  <ul class="readings">
+    <li><a href="https://arxiv.org/abs/2210.10760" target="_blank" rel="noopener">Scaling Laws for Reward Model Overoptimization</a> &mdash; Gao, Schulman &amp; Hilton (2022) &middot; the Goodharting reference the paper cites.</li>
+    <li><a href="https://arxiv.org/abs/2106.10328" target="_blank" rel="noopener">Process for Adapting Language Models to Society (PALMS)</a> &mdash; Solaiman &amp; Dennison (2021) &middot; the sensitive-question prompts used in the examples.</li>
+    <li><a href="https://arxiv.org/abs/2204.05862" target="_blank" rel="noopener">Training a Helpful and Harmless Assistant with RLHF</a> &mdash; Bai et al. (2022) &middot; the Elo procedure and the baselines.</li>
+  </ul>
+
+  <div class="callout">Next: <a class="lnk" href="evasiveness.html">Harmless is not the same as evasive</a> &middot; Back to the <a class="lnk" href="../index.html#paper">map</a>.</div>
+</main>
+<footer>Original explanation of <em>Constitutional AI: Harmlessness from AI Feedback</em> (Bai et al., 2022), &sect;3.3 and &sect;4.3&ndash;4.5. The paper is &copy; its authors; this page explains and links, it does not copy.</footer>
+<script src="../fig.js" defer></script>
+</body>
+</html>

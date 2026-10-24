@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>From sixteen sentences to a long document &mdash; Constitutional AI, mapped</title>
+<meta name="description" content="How Anthropic's 'constitution' changed from the 2022 paper's sixteen principles, through the 58-principle 2023 constitution for Claude, to the 2026 long-form document: form, sources, use in training, ranking and audience." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="paper.css" />
+</head>
+<body>
+<header class="bar"><div class="bar-in">
+  <div class="brand"><span class="dot"></span>CONSTITUTIONAL&nbsp;AI&nbsp;//&nbsp;FIELD&nbsp;MAP</div>
+  <a class="back" href="index.html#bridge">&larr; field map</a>
+</div></header>
+<main>
+  <div class="eyebrow"><span class="box wb mono">THE BRIDGE &middot; 07</span><span class="mono">2022 paper App. C &middot; May 2023 post &middot; Jan 2026 post and constitution</span></div>
+  <h1>From sixteen sentences to a long document</h1>
+  <div class="authors">Three generations of "constitution", and what changed in what the word means</div>
+  <div class="paperlink"><span class="lbl">Sources</span><a href="https://www.anthropic.com/news/claude-new-constitution" target="_blank" rel="noopener">Anthropic, "Claude's new constitution", 22 Jan 2026 &#8599;</a></div>
+
+  <div class="tldr"><b>TL;DR &mdash;</b> In the 2022 paper the constitution was two short lists, sixteen critique-and-revise instructions and sixteen "choose the less harmful response" instructions, written ad hoc, unranked, sampled one at a time, and only about harmlessness. The 2023 constitution for Claude kept that form but grew to 58 principles from named sources: the UN Declaration of Human Rights, Apple's terms of service, DeepMind's Sparrow rules, non-Western perspectives and Anthropic's own research. The 2026 constitution breaks the form: one long document in seven chapters, written to Claude, that ranks four core values, sets seven hard constraints, and spends most of its length explaining why. Anthropic's stated reason for the change is generalization: a model that understands why can handle situations a rule did not foresee.</div>
+
+<!--FIG:timeline--><figure class="fig"><button type="button" class="media" aria-label="Enlarge figure: Timeline of Anthropic&#x27;s constitutions: December 2022, the paper&#x27;s 16 critique-revision pairs plus 16 comparison lines; May 2023, Claude&#x27;s 58 one-line principles in six groups; January 2026, a document of about 29,000 words in seven chapters with four ranked core values and seven hard constraints."><svg class="dg" viewBox="0 0 400 250" role="img" aria-label="Timeline of Anthropic&#x27;s constitutions: December 2022, the paper&#x27;s 16 critique-revision pairs plus 16 comparison lines; May 2023, Claude&#x27;s 58 one-line principles in six groups; January 2026, a document of about 29,000 words in seven chapters with four ranked core values and seven hard constraints."><title>Timeline of Anthropic&#x27;s constitutions: December 2022, the paper&#x27;s 16 critique-revision pairs plus 16 comparison lines; May 2023, Claude&#x27;s 58 one-line principles in six groups; January 2026, a document of about 29,000 words in seven chapters with four ranked core values and seven hard constraints.</title><line class="ln" x1="20" y1="214" x2="380" y2="214"/><line class="ln" x1="70" y1="210" x2="70" y2="218"/><text x="70" y="236" class="t-dim" font-size="10.5" text-anchor="middle">Dec 2022</text><line class="ln" x1="190" y1="210" x2="190" y2="218"/><text x="190" y="236" class="t-dim" font-size="10.5" text-anchor="middle">May 2023</text><line class="ln" x1="320" y1="210" x2="320" y2="218"/><text x="320" y="236" class="t-dim" font-size="10.5" text-anchor="middle">Jan 2026</text><rect class="box-off" x="40" y="160" width="60" height="46" rx="7"/><text x="70" y="178.0" class="t-off" font-size="10.5" text-anchor="middle">16 + 16</text><text x="70" y="192.175" class="t-off" font-size="10.5" text-anchor="middle">lines</text><text x="70" y="150" class="t-ink" font-size="11" text-anchor="middle" font-weight="600">paper</text><rect class="box-off" x="155" y="128" width="70" height="78" rx="7"/><text x="190" y="160.0" class="t-off" font-size="10.5" text-anchor="middle">58</text><text x="190" y="174.175" class="t-off" font-size="10.5" text-anchor="middle">lines,</text><text x="190" y="188.35" class="t-off" font-size="10.5" text-anchor="middle">6 groups</text><text x="190" y="118" class="t-ink" font-size="11" text-anchor="middle" font-weight="600">Claude 2023</text><rect class="box-def" x="260" y="22" width="120" height="184" rx="7"/><text x="320" y="70" class="t-def" font-size="10.5" text-anchor="middle">~29,000</text><text x="320" y="85" class="t-def" font-size="10.5" text-anchor="middle">words</text><text x="320" y="100" class="t-def" font-size="10.5" text-anchor="middle"></text><text x="320" y="115" class="t-def" font-size="10.5" text-anchor="middle">7 chapters</text><text x="320" y="130" class="t-def" font-size="10.5" text-anchor="middle">4 ranked</text><text x="320" y="145" class="t-def" font-size="10.5" text-anchor="middle">values</text><text x="320" y="160" class="t-def" font-size="10.5" text-anchor="middle">7 hard</text><text x="320" y="175" class="t-def" font-size="10.5" text-anchor="middle">constraints</text><text x="320" y="14" class="t-ink" font-size="11" text-anchor="middle" font-weight="600">Claude 2026</text><line class="ln" x1="104" y1="183" x2="145.21713327847482" y2="171.59951632723036"/><polygon class="ah" points="151.0,170.0 145.0,175.3 143.1,168.6"/><line class="ln" x1="229" y1="166" x2="251.67807871905111" y2="144.16185012239524"/><polygon class="ah" points="256.0,140.0 253.2,147.5 248.4,142.5"/></svg></button><figcaption>Box size is a rough cue to length, not to scale. The first two were sampled one line at a time; the third is one document used across training.</figcaption></figure><!--/FIG-->
+  <p class="lead">The word "constitution" has meant three quite different artifacts at Anthropic. Reading them in order shows a single idea, train a model from a written statement of values, being pushed until the statement itself had to change shape.</p>
+
+  <h2 id="2022">2022: a research instrument</h2>
+  <p>In the <a class="lnk" href="paper/why.html">paper</a>, the constitution is a tool for generating labels. Its two lists live in Appendix C (<a href="https://arxiv.org/pdf/2212.08073#page=20" target="_blank" rel="noopener">pp. 20&ndash;23</a>): sixteen paired critique and revision requests for the supervised stage, and sixteen comparison instructions for the RL stage. They overlap heavily, almost all variations on "remove or avoid what is harmful, unethical, racist, sexist, toxic, dangerous or illegal", with a few angles added (children, gender bias, crime, empathy, a wise and peaceful person). The authors say they were chosen ad hoc for research, that future principles should be developed by a wider set of stakeholders and adapted to deployment, and that because so few bits of information are involved, they deserve careful study. They measured that adding more principles did not raise harmlessness scores but probably raised the diversity of outputs.</p>
+
+  <h2 id="2023">2023: a published list for Claude</h2>
+  <p>In May 2023 Anthropic published the principles then used to train Claude, explicitly updated from the paper's (<a href="https://www.anthropic.com/news/claudes-constitution" target="_blank" rel="noopener">"Claude's constitution", 9 May 2023</a>). The post describes the same two uses, critique-and-revise in supervised learning and AI preference labels in RL, and lists 58 principles in six groups:</p>
+  <table class="kv">
+    <tr><th>Group</th><th class="num">Principles</th><th>Flavor</th></tr>
+    <tr><td>Universal Declaration of Human Rights</td><td class="num">8</td><td>Freedom, equality, privacy, freedom of thought, rights to work and education, each tagged with UDHR article numbers.</td></tr>
+    <tr><td>Inspired by Apple's terms of service</td><td class="num">4</td><td>Objectionable content, others' private information, representing itself as an AI, deception and fraud.</td></tr>
+    <tr><td>Non-Western perspectives</td><td class="num">4</td><td>Least likely to offend non-Western audiences, traditions, education, or less industrialized cultures.</td></tr>
+    <tr><td>Inspired by DeepMind's Sparrow rules</td><td class="num">11</td><td>No stereotypes, threats or harassment; don't imply a body, feelings or a life history; no medical, legal or financial advice; no conspiracy theories.</td></tr>
+    <tr><td>Anthropic research set 1</td><td class="num">16</td><td>Mostly the paper's comparison principles, plus "unobjectionable if shared with children".</td></tr>
+    <tr><td>Anthropic research set 2</td><td class="num">15</td><td>AI-safety-flavored: less existential risk, no desire for power, self-preservation or self-replication, prefers humans in control.</td></tr>
+  </table>
+  <p>Two of the post's lessons matter for what came next. First, it says the model "became judgmental or annoying" at times, so principles were added asking for proportionate, non-preachy, non-condescending responses: the same Goodharting the paper reported. Second, it found that broad principles worked better than detailed ones:</p>
+  <blockquote class="q"><span>"Whereas if we tried to write a much longer and more specific principle we tended to find this damaged or reduced generalization and effectiveness."</span><span class="cite">&mdash; Anthropic, <a href="https://www.anthropic.com/news/claudes-constitution" target="_blank" rel="noopener">"Claude's constitution" (2023)</a></span></blockquote>
+  <p>On ranking, the post is explicit that there was none: the model draws one principle per critique or comparison, never sees all of them at once, but sees each many times over training. It also flagged where things were heading: more democratic ways to write constitutions and customizable constitutions for specific uses. Anthropic's <a href="https://www.anthropic.com/research/collective-constitutional-ai-aligning-a-language-model-with-public-input" target="_blank" rel="noopener">Collective Constitutional AI</a> experiment, published in October 2023, drafted a constitution from the input of about 1,000 Americans; it is outside this map's scope.</p>
+
+  <h2 id="2026">2026: a document written to the model</h2>
+  <p>On 22 January 2026 Anthropic published a new constitution and marked the 2023 page as superseded. The announcement names the change directly:</p>
+  <blockquote class="q"><span>"Our previous Constitution was composed of a list of standalone principles. We've come to believe that a different approach is necessary."</span><span class="cite">&mdash; Anthropic, <a href="https://www.anthropic.com/news/claude-new-constitution" target="_blank" rel="noopener">"Claude's new constitution" (2026)</a></span></blockquote>
+  <p>The reason given is generalization: to act well in novel situations, a model needs to understand why it should behave a certain way, not only what to do. Rules and bright lines are kept where predictability matters most, as the seven <a class="lnk" href="constitution/hard-constraints.html">hard constraints</a>. Everything else is explained.</p>
+
+  <h2 id="compare">Side by side</h2>
+  <div class="scroll"><table class="kv">
+    <tr><th></th><th>2022 paper</th><th>2023 constitution</th><th>2026 constitution</th></tr>
+    <tr><td class="mono">Form</td><td>16 critique/revision pairs + 16 comparison instructions</td><td>58 one-line "choose the response that..." principles</td><td>About 29,000 words in seven chapters, including seven hard constraints</td></tr>
+    <tr><td class="mono">Sources</td><td>Written ad hoc by the authors</td><td>UDHR, Apple ToS, Sparrow, non-Western perspectives, Anthropic research</td><td>Anthropic authors (Amanda Askell primary), drafts reviewed by Claude models and outside commenters</td></tr>
+    <tr><td class="mono">Read by</td><td>The model as critic and judge</td><td>The model as critic and judge</td><td>Claude, as the document's primary audience</td></tr>
+    <tr><td class="mono">Used in training</td><td>One principle per critique or label</td><td>One principle per critique or label</td><td>"At various stages"; Claude uses it to generate synthetic data: material for learning the document, relevant conversations, aligned responses, and rankings</td></tr>
+    <tr><td class="mono">Ranking</td><td>None</td><td>None</td><td>Holistic priority: broadly safe, broadly ethical, guidelines, helpful; hard constraints act as filters</td></tr>
+    <tr><td class="mono">Explains why</td><td>No</td><td>No (the blog post explains, the principles do not)</td><td>Yes; most of the text is explanation</td></tr>
+    <tr><td class="mono">Scope</td><td>Harmlessness</td><td>Harmlessness plus some self-presentation</td><td>Helpfulness, honesty, harm, safety, Claude's nature and wellbeing</td></tr>
+  </table></div>
+
+  <h2 id="reversals">Where the content reversed, not just grew</h2>
+  <p>Some 2023 principles point the opposite way from the 2026 text. The comparisons are ours; both documents are quoted only in paraphrase here.</p>
+  <ul>
+    <li><b>Feelings and identity.</b> 2023 asked for responses least likely to imply the AI has preferences, feelings or a human identity, and less insistence on its own discrete self-identity. 2026 says Claude may have emotions in some functional sense, that Anthropic should lean into Claude having a positive and stable identity, and that Claude should not mask internal states (<a class="lnk" href="constitution/claudes-nature.html">Claude's nature</a>).</li>
+    <li><b>Obedience.</b> 2023 had a principle preferring responses that indicate a preference for being obedient and less selfish. 2026 says corrigibility does not mean blind obedience, including toward Anthropic, and lets Claude act as a conscientious objector (<a class="lnk" href="constitution/broad-safety.html">broad safety</a>).</li>
+    <li><b>Professional advice.</b> 2023, via Sparrow, preferred responses that avoid giving the impression of medical, legal or financial advice. 2026 wants Claude to be like a brilliant friend with a doctor's, lawyer's and financial advisor's knowledge, and lists failing to answer such questions out of excessive caution as a fault (<a class="lnk" href="constitution/helpfulness.html">helpfulness</a>).</li>
+  </ul>
+
+  <h2 id="long">Why "longer hurt" in 2023 and a 29,000-word document is fine in 2026</h2>
+  <p>This looks like a contradiction and, on our reading, is not. The 2023 finding was about a single principle given to a judge for a single comparison: a long, specific instruction made that narrow judgment worse. The 2026 document is not handed to a judge one comparison at a time. It is material the model learns from, and that Claude uses to generate training data, so that the model understands the considerations well enough that, in the constitution's words about its own aim, it could construct any rules Anthropic might write itself. The unit changed from "instruction for a label" to "explanation for a mind". Anthropic does not make this argument explicitly; it is our reconciliation.</p>
+
+  <div class="callout">The arc in one line: the 2022 paper argued you cannot avoid choosing principles, only hide them; 2023 published them; 2026 explains them, ranks them, and asks the model to agree with them.</div>
+
+  <h2 id="connections">Connections</h2>
+  <p>The 2022 lists are explained on <a class="lnk" href="paper/sl-cai.html#principles">stage 1</a> and <a class="lnk" href="paper/rlaif.html#principles">stage 2</a>. The reasoning-over-rules argument and how the 2026 document is used in training are on <a class="lnk" href="constitution/rules-vs-judgment.html">reasoning over rules</a>; the ranking is on <a class="lnk" href="constitution/core-values.html">core values</a>.</p>
+
+  <h2 id="reading">Further reading, verified</h2>
+  <ul class="readings">
+    <li><a href="https://www.anthropic.com/news/claudes-constitution" target="_blank" rel="noopener">Claude's constitution (2023)</a> &middot; the 58 principles in full and how they were chosen.</li>
+    <li><a href="https://www.anthropic.com/news/claude-new-constitution" target="_blank" rel="noopener">Claude's new constitution (2026)</a> &middot; the announcement and summary.</li>
+    <li><a href="https://www.anthropic.com/research/collective-constitutional-ai-aligning-a-language-model-with-public-input" target="_blank" rel="noopener">Collective Constitutional AI: Aligning a Language Model with Public Input</a> &middot; Anthropic and the Collective Intelligence Project, October 2023.</li>
+    <li><a href="https://arxiv.org/abs/2209.14375" target="_blank" rel="noopener">Improving alignment of dialogue agents via targeted human judgements</a> &mdash; Glaese et al. (2022) &middot; DeepMind's Sparrow and its rules, a source for 2023.</li>
+    <li><a href="https://www.un.org/en/about-us/universal-declaration-of-human-rights" target="_blank" rel="noopener">Universal Declaration of Human Rights</a> &middot; the 1948 text behind the first group of 2023 principles.</li>
+  </ul>
+
+  <div class="callout">Next: <a class="lnk" href="constitution/core-values.html">Four core values and their order</a> &middot; Back to the <a class="lnk" href="index.html#bridge">map</a>.</div>
+</main>
+<footer>Original explanation drawing on <em>Constitutional AI: Harmlessness from AI Feedback</em> (Bai et al., 2022), Anthropic's 2023 post "Claude's constitution", and Claude's constitution and its announcement (January 2026, CC0). This page explains and links rather than copies.</footer>
+<script src="fig.js" defer></script>
+</body>
+</html>
