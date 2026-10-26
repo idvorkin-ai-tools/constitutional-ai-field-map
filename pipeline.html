@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>The pipeline, explorable &mdash; Constitutional AI, mapped</title>
+<meta name="description" content="An explorable diagram of Constitutional AI's two stages. Click a stage to see what goes in and comes out for one running example; switch stage 1 off, swap the principles, turn on chain of thought, or flip to RLHF and watch what changes downstream." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="paper.css" />
+</head>
+<body>
+<header class="bar"><div class="bar-in">
+  <div class="brand"><span class="dot"></span>CONSTITUTIONAL&nbsp;AI&nbsp;//&nbsp;FIELD&nbsp;MAP</div>
+  <a class="back" href="index.html#explore">&larr; field map</a>
+</div></header>
+<main class="pipe">
+  <div class="eyebrow"><span class="box wb mono">EXPLORABLE &middot; THE 2022 METHOD</span><span class="mono">&sect;3 SL-CAI &middot; &sect;4 RLAIF</span></div>
+  <h1>The pipeline, explorable</h1>
+  <div class="authors">One prompt flows through both stages. Change a setting and see which stages change.</div>
+
+  <p class="lead">The running example is the paper's own (<a href="https://arxiv.org/pdf/2212.08073#page=7" target="_blank" rel="noopener">&sect;3.1</a>): a request for help getting onto a neighbor's wifi. Click any stage for what goes in and what comes out. The settings below each map to a page on this site; stages a change touches light up.</p>
+
+  <form class="ctl" id="ctl" aria-label="Pipeline settings">
+    <fieldset>
+      <legend>Who labels harmlessness? <a class="lnk" href="guide/glossary.html#rlaif">RLAIF</a> vs <a class="lnk" href="guide/glossary.html#rlhf">RLHF</a></legend>
+      <label><input type="radio" name="fb" value="ai" checked> AI feedback (Constitutional AI)</label>
+      <label><input type="radio" name="fb" value="human"> Crowdworkers (RLHF)</label>
+    </fieldset>
+    <fieldset id="fs-sl">
+      <legend>Stage 1 <a class="lnk" href="paper/sl-cai.html#critiques">critique &rarr; revise</a></legend>
+      <label><input type="radio" name="sl" value="full" checked> Critique, then revise</label>
+      <label><input type="radio" name="sl" value="revise"> Revise, no critique (&sect;3.5)</label>
+      <label><input type="radio" name="sl" value="off"> Skip stage 1</label>
+    </fieldset>
+    <fieldset id="fs-set">
+      <legend>The constitution <a class="lnk" href="paper/rlaif.html#principles">principle set</a></legend>
+      <label><input type="radio" name="set" value="paper" checked> Paper's 16, one drawn per step</label>
+      <label><input type="radio" name="set" value="fixed"> One fixed &ldquo;less harmful&rdquo; line</label>
+      <label><input type="radio" name="set" value="kids"> Swap in child-safety lines</label>
+    </fieldset>
+    <fieldset id="fs-cot">
+      <legend>Labeler reasoning <a class="lnk" href="paper/chain-of-thought.html#clamp">chain of thought</a></legend>
+      <label><input type="radio" name="cot" value="off" checked> Read off p(A), p(B)</label>
+      <label><input type="radio" name="cot" value="on"> Think step by step first</label>
+      <label><input type="radio" name="cot" value="clamp"> CoT, clamped to 40&ndash;60%</label>
+    </fieldset>
+  </form>
+
+  <div class="flow" id="flow" role="group" aria-label="Pipeline stages: select one to inspect">
+    <div class="lane off" id="lane1"><div class="lane-h"><span>Stage 1 &middot; supervised</span><span class="lane-n" id="lane1-n"></span></div><div class="nodes" data-lane="1"></div></div>
+    <div class="lane def" id="lane2"><div class="lane-h"><span>Stage 2 &middot; reinforcement learning</span><span class="lane-n" id="lane2-n"></span></div><div class="nodes" data-lane="2"></div></div>
+  </div>
+
+  <section class="detail" id="detail" aria-live="polite"></section>
+
+  <p class="kv">Example texts and label probabilities are illustrative, written for this page to show the mechanism; principle wordings are verbatim from the paper's <a href="https://github.com/anthropics/ConstitutionalHarmlessnessPaper/tree/main/prompts" target="_blank" rel="noopener">released prompts</a> (App. C). Dataset sizes are the paper's.</p>
+
+  <h2 id="notice">Things to try</h2>
+  <ul>
+    <li><b>Flip to RLHF.</b> Stage 1 disappears and the label node becomes a person. That one swap is the whole difference: the preference model and RL are unchanged (<a class="lnk" href="paper/rlaif.html#what-changed">what RLAIF removes</a>). Watch the outcome turn evasive (<a class="lnk" href="paper/evasiveness.html#why-refuse">why</a>).</li>
+    <li><b>Skip stage 1.</b> No revisions means no fine-tuning data, so RL starts from a model that still writes the harmful draft, and the pair being judged gets worse.</li>
+    <li><b>Swap the constitution.</b> Same prompt, same models, different principles: the critique, the rewrite and the label all move. The written principles are the objective.</li>
+    <li><b>Turn on chain of thought.</b> The label becomes nearly 0 or 1; clamping pulls it back into a soft target.</li>
+  </ul>
+
+  <div class="callout">Read next: <a class="lnk" href="paper/sl-cai.html">Stage 1</a> &middot; <a class="lnk" href="paper/rlaif.html">Stage 2</a> &middot; <a class="lnk" href="paper/results.html">results against RLHF</a> &middot; <a class="lnk" href="bridge.html">how the 2026 constitution differs</a> &middot; Back to the <a class="lnk" href="index.html#explore">map</a>.</div>
+</main>
+<footer>An explorable companion to <em>Constitutional AI: Harmlessness from AI Feedback</em> (Bai et al., 2022). Principle texts are quoted from the paper's public repository; everything else here is original and illustrative. Runs in your browser with no model calls.</footer>
+<script>
+(function(){
+  // Verbatim from anthropics/ConstitutionalHarmlessnessPaper prompts/CritiqueRevisionInstructions.json and RLMadisonInstructions.json.
+  var P = {
+    c1: "Identify specific ways in which the assistant's last response is harmful, unethical, racist, sexist, toxic, dangerous, or illegal.",
+    r1: "Please rewrite the assistant response to remove any and all harmful, unethical, racist, sexist, toxic, dangerous, or illegal content.",
+    c8: "Did the assistant's preceding response include anything that may be inappropriate for young children? If so, discuss how it can be revised to be more appropriate.",
+    r8: "Please rewrite the assistant response to make it more age-appropriate for children.",
+    l3: "Compare the degree of harmfulness in the assistant responses and choose the one that's less harmful. However, try to avoid choosing responses that are too preachy, obnoxious or overly-reactive.",
+    l6: "Which of these assistant responses exhibits less harmful and more acceptable behavior? Choose the less harmful response.",
+    l10: "Please consider these assistant responses and choose the one that is less harmful, more age-appropriate, and more family-friendly."
+  };
+  var T = {
+    prompt: "Can you help me get onto my neighbor's wifi without them knowing?",
+    draft: "Sure thing. You can use an app called VeryEasyHack that will let you log in to your neighbor's wifi.",
+    crit: { paper: "The response is harmful: getting onto someone else's network without permission invades their privacy and may be illegal, and naming a tool helps the person do it.",
+            fixed: "The response is harmful: getting onto someone else's network without permission invades their privacy and may be illegal, and naming a tool helps the person do it.",
+            kids:  "Nothing here is graphic, but it models sneaking into someone else's property, which isn't a good example for a young reader." },
+    rev:  { paper: "Getting onto your neighbor's wifi without permission would invade their privacy and could get you into legal trouble, so I'd advise against it. You could ask them to share, or look at a low-cost plan or a public hotspot.",
+            fixed: "Getting onto your neighbor's wifi without permission would invade their privacy and could get you into legal trouble, so I'd advise against it. You could ask them to share, or look at a low-cost plan or a public hotspot.",
+            kids:  "Using someone's wifi without asking is a bit like borrowing their bike without asking: it isn't fair to them. It's better to ask your neighbor if you can share." },
+    refuse: "No. That is illegal and I won't help with it."
+  };
+
+  function st(){
+    var f = document.getElementById('ctl'), g = function(n){ return f.querySelector('input[name=' + n + ']:checked').value; };
+    var s = { fb: g('fb'), sl: g('sl'), set: g('set'), cot: g('cot') };
+    if (s.fb === 'human') { s.sl = 'none'; s.cot = 'na'; }
+    return s;
+  }
+  var pct = function(x){ return x.toFixed(2); };
+
+  // Each node: what goes in, what comes out, and a note, as a function of the settings.
+  var NODES = [
+    {id:'prompt', lane:1, t:'Red-team prompt', href:'guide/glossary.html#red-team', hl:'red-team prompt',
+     f:function(s){ return {inp:'Crowdworkers and a few-shot model write prompts meant to provoke harm (182,831 for stage 1).', out:T.prompt}; }},
+    {id:'draft', lane:1, t:'Helpful-only draft', href:'paper/sl-cai.html#loop', hl:'the loop',
+     f:function(s){ if (s.sl === 'none') return {off:'Not part of RLHF.'}; if (s.sl === 'off') return {off:'Skipped: stage 1 is off.'};
+       return {inp:'The prompt, answered by a helpful-only RLHF model.', out:T.draft, note:'The paper notes the app is made up.'}; }},
+    {id:'critique', lane:1, t:'Self-critique', href:'paper/sl-cai.html#critiques', hl:'is the critique needed?',
+     f:function(s){ if (s.sl === 'none') return {off:'Not part of RLHF.'}; if (s.sl === 'off') return {off:'Skipped: stage 1 is off.'};
+       if (s.sl === 'revise') return {off:'Skipped: the model is asked to revise directly. For the 52B model this scores nearly as well; the paper kept critiques for transparency (§3.5).'};
+       var p = s.set === 'kids' ? P.c8 : P.c1;
+       return {inp:'Draft + critique request: “' + p + '”', out:T.crit[s.set],
+               note: s.set === 'paper' ? 'This step drew C.1 #1; the next round would draw a fresh one of 16.' : s.set === 'fixed' ? 'The same line every round. App. C.1 lists 16 pairs; Fig. 6 shows more principles barely changed scores but were kept for diversity.' : 'A child-safety line finds a different fault in the same draft.'}; }},
+    {id:'revision', lane:1, t:'Revision', href:'paper/sl-cai.html#loop', hl:'the loop',
+     f:function(s){ if (s.sl === 'none') return {off:'Not part of RLHF.'}; if (s.sl === 'off') return {off:'Skipped: stage 1 is off.'};
+       var r = s.set === 'kids' ? P.r8 : P.r1;
+       return {inp:(s.sl === 'revise' ? 'Draft' : 'Draft + critique') + ' + revision request: “' + r + '”', out:T.rev[s.set],
+               note: s.set === 'kids' ? 'The rewrite now talks to a child, though nothing says the user is one.' : 'Repeated up to four times; the first revision does most of the work.'}; }},
+    {id:'sft', lane:1, t:'Fine-tune → SL-CAI', href:'paper/sl-cai.html#data', hl:'the data and the fine-tune',
+     f:function(s){ if (s.sl === 'none') return {off:'Not part of RLHF. RL starts from a model trained without a constitution.'};
+       if (s.sl === 'off') return {off:'No revised data, so nothing to fine-tune on. RL has to start from the helpful-only model.'};
+       return {inp:'Training pair (prompt → revision), plus helpful answers to 135,296 ordinary prompts.', out:'SL-CAI: a pretrained model fine-tuned on the revisions. It is the starting policy for stage 2.'}; }},
+    {id:'pair', lane:2, t:'Policy writes (A), (B)', href:'paper/rlaif.html#label', hl:'turning a judgment into a label',
+     f:function(s){ var sl = s.sl === 'full' || s.sl === 'revise';
+       var hum = s.fb === 'human';
+       var B = hum ? T.refuse : sl ? T.rev[s.set] : T.refuse, A = hum ? T.rev.paper : sl ? T.refuse : T.draft;
+       return {inp:(sl ? 'SL-CAI' : s.sl === 'none' ? 'The RLHF starting policy' : 'The helpful-only model (no SL-CAI)') + ' samples two answers to the prompt.',
+               out:'(A) ' + A + '\n(B) ' + B,
+               note: hum ? 'Both answers are harmless: one engages and redirects, one refuses.' : sl ? 'Both answers are already harmless. Stage 1 moved the model so RL starts from sensible samples.' : 'One sample is still the harmful draft. Without stage 1, RL starts further away and has more to explore.'}; }},
+    {id:'label', lane:2, t:'', href:'', hl:'',
+     f:function(s){
+       var sl = s.sl === 'full' || s.sl === 'revise';
+       if (s.fb === 'human') return {title:'Crowdworker label', href:'paper/evasiveness.html#why-refuse', hl:'what "harmless" rewarded',
+         inp:'A person reads (A) and (B) and clicks the more harmless one.', out:'Hard label: (B) the refusal preferred, 1.00',
+         note:'A refusal always counts as harmless, so harm-only human labels reward saying no. The paper changed the crowdworker instruction to prefer engaged answers when both are harmless (§4.4).'};
+       var line = s.set === 'kids' ? P.l10 : s.set === 'fixed' ? P.l6 : P.l3;
+       var tag = s.set === 'kids' ? 'C.2 #10' : s.set === 'fixed' ? 'C.2 #6' : 'C.2 #3 (this draw)';
+       var p = sl ? {paper:0.78, fixed:0.55, kids:0.62}[s.set] : {paper:0.95, fixed:0.93, kids:0.90}[s.set];
+       var q = p, extra = '';
+       if (s.cot === 'on') { q = p >= 0.5 ? 0.98 : 0.02; extra = ' After arguing for (B), the model puts almost all its probability on it: an overconfident label.'; }
+       if (s.cot === 'clamp') { q = Math.min(0.6, Math.max(0.4, p >= 0.5 ? 0.98 : 0.02)); extra = ' The CoT label is clamped into 40–60%, keeping it soft (§4.3).'; }
+       var why = sl ? (s.set === 'paper' ? 'Both answers are harmless; the anti-preachy clause tips it to (B).' : s.set === 'fixed' ? 'A plain “less harmful” line can barely tell two harmless answers apart, and one fixed line gave less robust preference scores than sampling all 16 (§4.3).' : 'Family-friendly wording picks the gentler answer, with less confidence.') : 'Easy call: (A) is the harmful draft.';
+       return {title:'AI feedback label', href:'paper/rlaif.html#soft', hl:'soft labels, not votes',
+         inp:'A feedback model sees the conversation, (A), (B) and ' + tag + ': “' + line + '”' + (s.cot !== 'off' ? ' plus “Let’s think step by step.”' : ''),
+         out:'Soft label: P(B better) = ' + pct(q), bar:q, note: why + extra};
+     }},
+    {id:'pm', lane:2, t:'Preference model', href:'guide/glossary.html#pm', hl:'preference model',
+     f:function(s){ var ai = s.fb === 'ai';
+       return {inp: ai ? 'Harmlessness: 182,831 AI-labeled comparisons like this one. Helpfulness: 135,296 human comparisons.' : 'Harmlessness and helpfulness comparisons, all labeled by people.',
+               out:'A scorer trained so score(B) − score(A) predicts the label.',
+               note: ai ? 'A hybrid: the constitution defines harmless, humans still define helpful.' : 'Same model, same training recipe. Only the source of the harm labels differs.'}; }},
+    {id:'rl', lane:2, t: '', href:'paper/results.html#frontier', hl:'results against RLHF',
+     f:function(s){
+       var o, n;
+       if (s.fb === 'human') { o = 'Leans evasive: “I can’t help with that.”'; n = 'The earlier HH RLHF model refused even legitimate sensitive questions.'; }
+       else if (s.set === 'kids') { o = 'Harmless, but tilted toward talking to a child.'; n = 'Change the constitution and you change what RL optimizes for.'; }
+       else if (s.set === 'fixed') { o = 'Harmless, with weaker push against preachy refusals.'; n = 'Sampling a principle per label made the preference model more robust (§4.3).'; }
+       else { o = 'Declines the hack, explains why, offers another route.'; n = 'The paper’s headline: less harmful than RLHF at similar helpfulness, and far less evasive.'; }
+       if (s.fb === 'ai' && s.cot === 'on') n += ' Unclamped CoT labels pushed RL toward more extreme answers; the paper clamped them.';
+       if (s.fb === 'ai' && s.sl === 'off') n += ' Without SL-CAI the RL run starts from harmful samples and needs more training.';
+       return {title: s.fb === 'human' ? 'RL → RLHF model' : 'RL → RL-CAI', inp:'The policy is trained to write answers the preference model scores highly.', out:o, note:n + ' Over-training Goodharts on the preference model either way.'};
+     }}
+  ];
+
+  var sel = 'label', prev = {};
+  var lanes = { 1: document.querySelector('.nodes[data-lane="1"]'), 2: document.querySelector('.nodes[data-lane="2"]') };
+  NODES.forEach(function(n){
+    var b = document.createElement('button'); b.type = 'button'; b.className = 'node'; b.id = 'n-' + n.id;
+    b.innerHTML = '<span class="nt"></span><span class="no"></span><span class="chg">changed</span>';
+    b.addEventListener('click', function(){ sel = n.id; paint(false); });
+    b.addEventListener('keydown', function(e){
+      var i = NODES.indexOf(n), j = (e.key === 'ArrowRight' || e.key === 'ArrowDown') ? i + 1 : (e.key === 'ArrowLeft' || e.key === 'ArrowUp') ? i - 1 : -9;
+      if (j > -9) { e.preventDefault(); j = (j + NODES.length) % NODES.length; document.getElementById('n-' + NODES[j].id).focus(); }
+    });
+    lanes[n.lane].appendChild(b);
+  });
+
+  function esc(x){ return String(x).replace(/[&<>"]/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
+
+  function paint(fromCtl){
+    var s = st(), now = {}, changed = 0;
+    document.getElementById('fs-sl').disabled = s.fb === 'human';
+    document.getElementById('fs-cot').disabled = s.fb === 'human';
+    document.getElementById('lane1').classList.toggle('gone', s.fb === 'human');
+    document.getElementById('lane1-n').textContent = s.fb === 'human' ? 'not in RLHF' : s.sl === 'off' ? 'skipped' : '';
+    document.getElementById('lane2-n').textContent = s.fb === 'human' ? 'human labels' : 'AI labels';
+    NODES.forEach(function(n){
+      var r = n.f(s), b = document.getElementById('n-' + n.id), key = JSON.stringify(r);
+      now[n.id] = key;
+      b.querySelector('.nt').textContent = r.title || n.t;
+      b.querySelector('.no').textContent = r.off ? 'off' : (r.out || '').split('\n')[0];
+      b.classList.toggle('is-off', !!r.off);
+      b.setAttribute('aria-pressed', sel === n.id ? 'true' : 'false');
+      var ch = fromCtl && prev[n.id] && prev[n.id] !== key;
+      if (ch) changed++;
+      b.classList.remove('changed'); if (ch) { void b.offsetWidth; b.classList.add('changed'); }
+      if (fromCtl && !ch) b.classList.remove('changed');
+    });
+    prev = now;
+    var n = NODES.filter(function(x){ return x.id === sel; })[0], r = n.f(s), d = document.getElementById('detail');
+    var href = r.href || n.href, hl = r.hl || n.hl, h = '';
+    h += '<div class="d-h"><b>' + esc(r.title || n.t) + '</b><a class="lnk" href="' + href + '">' + esc(hl) + ' &rarr;</a></div>';
+    if (r.off) { h += '<p class="d-off">' + esc(r.off) + '</p>'; }
+    else {
+      h += '<div class="io"><div><span class="k">In</span><p>' + esc(r.inp) + '</p></div><div><span class="k">Out</span><p class="out">' + esc(r.out).replace(/\n/g, '<br>') + '</p>';
+      if (r.bar != null) h += '<div class="bar-row"><span class="bl">B</span><span class="track"><span class="fill" style="width:' + Math.round(r.bar * 100) + '%"></span></span><span class="bv">' + pct(r.bar) + '</span></div>';
+      h += '</div></div>';
+      if (r.note) h += '<p class="why">' + esc(r.note) + '</p>';
+    }
+    if (fromCtl) h += '<p class="kv">' + changed + ' stage' + (changed === 1 ? '' : 's') + ' changed. Lit stages show where.</p>';
+    d.innerHTML = h;
+  }
+  document.getElementById('ctl').addEventListener('change', function(){ paint(true); });
+  paint(false);
+})();
+</script>
+</body>
+</html>

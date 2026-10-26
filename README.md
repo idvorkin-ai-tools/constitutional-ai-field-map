@@ -12,6 +12,9 @@ A field map of Anthropic's Constitutional AI, in two parts:
   Source: https://www.anthropic.com/constitution (CC0 1.0)
 - **The bridge** (`bridge.html`): from the 2022 list of sixteen principles, through the 2023
   constitution, to the 2026 document.
+- **The pipeline, explorable** (`pipeline.html`): both stages as a clickable flow with one
+  running example; toggle stage 1, the principle set, chain of thought, and RLAIF vs RLHF.
+  Client-side, no model calls.
 - **Guides** (`guide/`): read it in 10 minutes, for builders, glossary.
 
 **Live: https://idvorkin-ai-tools.github.io/constitutional-ai-field-map/**

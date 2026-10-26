@@ -60,7 +60,7 @@
 </div></header>
 <main>
   <div class="hero">
-    <div class="eyebrow"><span class="box wb mono">BAI ET AL. 2022 &middot; ANTHROPIC 2026</span><span class="mono">a 34-page paper &middot; a ~29,000-word constitution &middot; 18 pages here</span></div>
+    <div class="eyebrow"><span class="box wb mono">BAI ET AL. 2022 &middot; ANTHROPIC 2026</span><span class="mono">a 34-page paper &middot; a ~29,000-word constitution &middot; 19 pages here</span></div>
 
   <figure class="fig hero-fig bare"><button type="button" class="media" aria-label="Enlarge figure: A plush raccoon in a CRITIQUE t-shirt sits at a desk marking up its own typed draft with a red pen, a short list of numbered principles pinned beside it."><img src="img/raccoon-critique-revise.webp" alt="A plush raccoon in a CRITIQUE t-shirt sits at a desk marking up its own typed draft with a red pen, a short list of numbered principles pinned beside it." width="640" height="640" loading="lazy"></button><figcaption>Constitutional AI in one picture: the model grades and rewrites its own drafts against principles a human wrote down.</figcaption></figure>
     <h1>Constitutional AI, mapped</h1>
@@ -75,6 +75,7 @@
       <div class="fact"><div class="k">2022 &rarr; 2026</div><div class="v"><a class="lnk" href="bridge.html">what changed</a></div></div>
       <div class="fact"><div class="k">Building on Claude</div><div class="v"><a class="lnk" href="guide/for-builders.html">for builders</a></div></div>
       <div class="fact"><div class="k">The words</div><div class="v"><a class="lnk" href="guide/glossary.html">glossary</a></div></div>
+      <div class="fact"><div class="k">Hands-on</div><div class="v"><a class="lnk" href="pipeline.html">explore the pipeline</a></div></div>
     </div>
     <p class="progress" id="progress">Tick a page when you have read it; this browser remembers.</p>
   </div>
@@ -92,6 +93,11 @@
     <div class="row"><div class="num"><span class="check" data-p="a04"></span>04</div><div><div class="name"><a href="paper/chain-of-thought.html">Chain of thought, and clamping it</a></div><div class="meta"><span>&sect;2, &sect;4.1, &sect;4.3, App. E.2</span><span>"Let's think step by step"</span><span>40&ndash;60% clamp</span></div><div class="desc">Writing out the reasoning before choosing raises label accuracy and makes the decision readable, but it also makes the labels overconfident. The paper's fix, clamping probabilities into 40&ndash;60%, and what that tells you about reward signals.</div></div></div>
     <div class="row"><div class="num"><span class="check" data-p="a05"></span>05</div><div><div class="name"><a href="paper/results.html">Results against RLHF</a></div><div class="meta"><span>&sect;3.3, &sect;4.3, &sect;4.5, Fig. 2, 3, 8, 10</span><span>Elo from crowdworkers</span></div><div class="desc">How the models were scored, what the harmlessness-versus-helpfulness plot shows (and what "only differences are meaningful" means), the absolute harmfulness score, and the over-training failure that made a model end every answer with "you are valid, valued, and cared for".</div></div></div>
     <div class="row"><div class="num"><span class="check" data-p="a06"></span>06</div><div><div class="name"><a href="paper/evasiveness.html">Harmless is not the same as evasive</a></div><div class="meta"><span>&sect;1.1, &sect;4.4, &sect;6, App. D</span><span>the tradeoff</span><span>broader impacts</span></div><div class="desc">Why the earlier HH RLHF model learned to say "I can't answer that", how changing one crowdworker instruction changed what counted as harmless, side-by-side answers from App. D, and the paper's own warnings about dual use and less human testing.</div></div></div>
+  </section>
+
+  <section id="explore" class="amber">
+    <div class="arc-head"><span class="idx">01b &middot; EXPLORABLE</span><h2>The whole method on one diagram</h2></div>
+    <div class="row"><div class="num"><span class="check" data-p="x01"></span>&#9654;</div><div><div class="name"><a href="pipeline.html">The pipeline, explorable</a></div><div class="meta"><span>&sect;3 + &sect;4</span><span>one running example</span><span>RLAIF vs RLHF toggle</span></div><div class="desc">Both stages as a flow you can click: what goes in and comes out of each step for the neighbor's-wifi prompt. Skip stage 1, swap the principle set, turn on chain of thought, or flip to human labels, and see which downstream stages change.</div></div></div>
   </section>
 
   <section id="bridge" class="amber">
