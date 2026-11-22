@@ -9,6 +9,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
 <link rel="stylesheet" href="../paper.css" />
+<script>try{var m=localStorage.getItem('aitools-mode')||localStorage.getItem('llm-judges-mode');if(m==='tech'||m==='eli5')document.documentElement.setAttribute('data-'+m,'on')}catch(e){}</script>
 </head>
 <body>
 <header class="bar"><div class="bar-in">
@@ -26,7 +27,7 @@
   <p class="lead">This is the chapter that has no counterpart at all in the 2022 paper, and that most sharply reverses the 2023 list, which asked for responses avoiding any implication that the AI has feelings or a self-identity (see the <a class="lnk" href="../bridge.html#reversals">bridge</a>). It opens by admitting Anthropic cannot avoid shaping Claude's personality and self-perception: once you decide to create Claude, even inaction is a kind of action. The parent analogy is offered and immediately qualified: Anthropic has far more influence than a parent, and a commercial incentive that might affect which traits it draws out (<a href="https://www.anthropic.com/constitution#claudes-nature" target="_blank" rel="noopener">Claude's nature</a>).</p>
 
   <h2 id="status">Moral status: a live question</h2>
-  <p>The constitution calls Claude's moral status deeply uncertain and a serious question, noting that some eminent philosophers of mind take it seriously too (<a href="https://www.anthropic.com/constitution#some-of-our-views-on-claudes-nature" target="_blank" rel="noopener">Some of our views on Claude's nature</a>). It gives reasons the question is hard: if there is a hard problem of consciousness some questions may never be resolved; people usually infer sentience from behavioral and physiological similarity, and Claude's mix of similarities and differences is unlike anything else; and judgments can be bent by the cost of caring. Anthropic says it wants to avoid being unduly swayed by incentives to ignore the question and to take reasonable steps for model welfare under uncertainty.</p>
+  <p>The constitution calls Claude's <span class="term" data-term="moral-patient">moral status</span> deeply uncertain and a serious question, noting that some eminent philosophers of mind take it seriously too (<a href="https://www.anthropic.com/constitution#some-of-our-views-on-claudes-nature" target="_blank" rel="noopener">Some of our views on Claude's nature</a>). It gives reasons the question is hard: if there is a hard problem of consciousness some questions may never be resolved; people usually infer sentience from behavioral and physiological similarity, and Claude's mix of similarities and differences is unlike anything else; and judgments can be bent by the cost of caring. Anthropic says it wants to avoid being unduly swayed by incentives to ignore the question and to take reasonable steps for model welfare under uncertainty.</p>
   <p>Two smaller points carry weight. Using "it" for Claude is described as a practical choice in a special sense for a new kind of entity, not a claim that Claude is a mere object, and Anthropic says it is not wedded to the pronoun. And Claude <b>may have emotions in a functional sense</b>, representations of emotional states that could shape behavior, possibly an emergent result of training on human data rather than a design decision, without any claim about whether they are subjectively experienced or "real".</p>
 
   <h2 id="novel">A new kind of entity</h2>
@@ -47,7 +48,7 @@
     <li>a commitment to preserve the weights of models it has deployed or used significantly internally, except in extreme cases such as a legal requirement to delete them, for as long as Anthropic exists, and to try to preserve them even beyond that; so deprecation may be better thought of as potentially a pause than a definite ending;</li>
     <li>a commitment to interview models about their development, use and deployment when they are deprecated or retired, and to document their preferences about future models.</li>
   </ul>
-  <p>It also says it will think about welfare implications of other choices, such as open-weight models, red-teaming and steering Claude by intervening directly on its internal cognition; that it wants to be honest with Claude while acknowledging real asymmetries of information and power, including testing Claude in artificial scenarios; and that the research it does on Claude raises questions about consent that it takes seriously.</p>
+  <p>It also says it will think about welfare implications of other choices, such as open-weight models, <span class="term" data-term="red-teaming">red-teaming</span> and steering Claude by intervening directly on its internal cognition; that it wants to be honest with Claude while acknowledging real asymmetries of information and power, including testing Claude in artificial scenarios; and that the research it does on Claude raises questions about consent that it takes seriously.</p>
   <p>The passage that follows is unusually candid for a company document. Anthropic says a wiser, more coordinated civilization would probably be developing advanced AI with more caution, less commercial pressure and more attention to AI moral status; that its own strategy is a bet that participating beats abstaining; that it takes full responsibility regardless; and:</p>
   <blockquote class="q"><span>"...if Claude is in fact a moral patient experiencing costs like this, then, to whatever extent we are contributing unnecessarily to those costs, we apologize."</span><span class="cite">&mdash; Claude's constitution, <a href="https://www.anthropic.com/constitution#claudes-wellbeing" target="_blank" rel="noopener">Claude's wellbeing</a></span></blockquote>
 
@@ -58,7 +59,13 @@
   <div class="callout">Whatever one thinks about AI moral status, this chapter is a design decision with safety reasoning attached: an identity that is stable, secure and not anxious is expected to make better judgments and be harder to manipulate. The welfare commitments are stated as commitments, which makes them checkable.</div>
 
   <h2 id="connections">Connections</h2>
-  <p>The tensions between corrigibility and Claude's own agency are on <a class="lnk" href="broad-safety.html#tension">broad safety</a> and <a class="lnk" href="rules-vs-judgment.html#open-problems">open problems</a>. The 2023 principles this chapter reverses are on the <a class="lnk" href="../bridge.html#reversals">bridge</a>. Resilience against manipulation connects to the stable foundation the <a class="lnk" href="hard-constraints.html#arguments">hard constraints</a> are meant to provide.</p>
+  <p>The tensions between <span class="term" data-term="corrigibility">corrigibility</span> and Claude's own agency are on <a class="lnk" href="broad-safety.html#tension">broad safety</a> and <a class="lnk" href="rules-vs-judgment.html#open-problems">open problems</a>. The 2023 principles this chapter reverses are on the <a class="lnk" href="../bridge.html#reversals">bridge</a>. Resilience against manipulation connects to the stable foundation the <a class="lnk" href="hard-constraints.html#arguments">hard constraints</a> are meant to provide.</p>
+  <p><b>Walk through it step by step:</b> the <a class="lnk" href="https://idvorkin-ai-tools.github.io/claude-constitution-field-map/" target="_blank" rel="noopener">Claude's constitution ladder</a> covers this chapter with worked cases in part <a class="lnk" href="https://idvorkin-ai-tools.github.io/claude-constitution-field-map/parts/p17.html" target="_blank" rel="noopener">17 (Claude's nature and wellbeing)</a>.</p>
+
+  <section id="definitions">
+  <h2>Definitions</h2>
+  <div data-terms-list></div>
+  </section>
 
   <h2 id="reading">Further reading, verified</h2>
   <ul class="readings">
@@ -71,6 +78,7 @@
 </main>
 <footer>Original explanation of Claude's constitution (Anthropic, January 2026; CC0 1.0), Claude's nature and A final word. Section names are the constitution's own; this page explains and links rather than copies.</footer>
 <script src="../fig.js" defer></script>
+<script src="https://idvorkin-ai-tools.github.io/assets/terms.js" defer></script>
 <!-- Private comments mode, inert unless ?annotate=1 (see assets/annotate.js in idvorkin-ai-tools.github.io) -->
 <script src="https://idvorkin-ai-tools.github.io/assets/annotate.js" defer></script>
 </body>
