@@ -9,6 +9,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
 <link rel="stylesheet" href="paper.css" />
+<script>try{var m=localStorage.getItem('aitools-mode')||localStorage.getItem('llm-judges-mode');if(m==='tech'||m==='eli5')document.documentElement.setAttribute('data-'+m,'on')}catch(e){}</script>
 </head>
 <body>
 <header class="bar"><div class="bar-in">
@@ -59,11 +60,16 @@
 
   <h2 id="notice">Things to try</h2>
   <ul>
-    <li><b>Flip to RLHF.</b> Stage 1 disappears and the label node becomes a person. That one swap is the whole difference: the preference model and RL are unchanged (<a class="lnk" href="paper/rlaif.html#what-changed">what RLAIF removes</a>). Watch the outcome turn evasive (<a class="lnk" href="paper/evasiveness.html#why-refuse">why</a>).</li>
-    <li><b>Skip stage 1.</b> No revisions means no fine-tuning data, so RL starts from a model that still writes the harmful draft, and the pair being judged gets worse.</li>
+    <li><b>Flip to <span class="term" data-term="rlhf">RLHF</span>.</b> Stage 1 disappears and the label node becomes a person. That one swap is the whole difference: the <span class="term" data-term="reward-model">preference model</span> and RL are unchanged (<a class="lnk" href="paper/rlaif.html#what-changed">what RLAIF removes</a>). Watch the outcome turn <span class="term" data-term="over-refusal">evasive</span> (<a class="lnk" href="paper/evasiveness.html#why-refuse">why</a>).</li>
+    <li><b>Skip stage 1.</b> No revisions means no <span class="term" data-term="fine-tuning">fine-tuning</span> data, so RL starts from a model that still writes the harmful draft, and the pair being judged gets worse.</li>
     <li><b>Swap the constitution.</b> Same prompt, same models, different principles: the critique, the rewrite and the label all move. The written principles are the objective.</li>
-    <li><b>Turn on chain of thought.</b> The label becomes nearly 0 or 1; clamping pulls it back into a soft target.</li>
+    <li><b>Turn on <span class="term" data-term="chain-of-thought">chain of thought</span>.</b> The label becomes nearly 0 or 1; clamping pulls it back into a soft target.</li>
   </ul>
+
+  <section id="definitions">
+  <h2>Definitions</h2>
+  <div data-terms-list></div>
+  </section>
 
   <div class="callout">Read next: <a class="lnk" href="paper/sl-cai.html">Stage 1</a> &middot; <a class="lnk" href="paper/rlaif.html">Stage 2</a> &middot; <a class="lnk" href="paper/results.html">results against RLHF</a> &middot; <a class="lnk" href="bridge.html">how the 2026 constitution differs</a> &middot; Back to the <a class="lnk" href="index.html#explore">map</a>.</div>
 </main>
@@ -216,6 +222,7 @@
   paint(false);
 })();
 </script>
+<script src="https://idvorkin-ai-tools.github.io/assets/terms.js" defer></script>
 <!-- Private comments mode, inert unless ?annotate=1 (see assets/annotate.js in idvorkin-ai-tools.github.io) -->
 <script src="https://idvorkin-ai-tools.github.io/assets/annotate.js" defer></script>
 </body>
